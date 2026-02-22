@@ -5,17 +5,17 @@
 ## Directory Structure
 
 심볼릭 링크로 두 개의 독립된 프로젝트를 연결.
-- `ui/`: React 프로젝트 (package.json)
-- `api/`: Spring Boot 프로젝트 (build.gradle)
+- `_ui/`: React 프로젝트 (package.json)
+- `_api/`: Spring Boot 프로젝트 (build.gradle)
 
-> 파일 경로 참조 시 `ui/` 또는 `api/` 접두사 필수 확인
+> 파일 경로 참조 시 `_ui/` 또는 `_api/` 접두사 필수 확인
 
 ## Context Routing
 
 | 작업 유형 | 참조 파일 |
 |----------|----------|
-| 프론트엔드 | `ui/CLAUDE.md` |
-| 백엔드 | `api/CLAUDE.md` |
+| 프론트엔드 | `_ui/CLAUDE.md` |
+| 백엔드 | `_api/CLAUDE.md` |
 | 아키텍처/DB | `context/` |
 | 의사결정 기록 | `memories/decisions.md` |
 
@@ -28,7 +28,7 @@
 
 - **커밋**: `[FE]`, `[BE]`, `[COMMON]` 접두사
 - **언어**: 변수명 영어, 주석 한국어
-- **브랜치**: `feature/`, `fix/`, `refactor/`
+- **브랜치**: `feature/`
 
 ## Available Agents
 
@@ -40,6 +40,6 @@
 
 | 명령 | 실행 |
 |-----|-----|
-| 프론트 | `cd ui && npm run dev` |
-| 백엔드 | `cd api && ./gradlew bootRun` |
+| 프론트 | `cd _ui && npm run dev` |
+| 백엔드 | `cd _api && ./gradlew bootRun` |
 | 전체 | `./scripts/run_all.sh` | -->

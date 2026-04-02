@@ -80,7 +80,9 @@ public class BcdInternalException extends BcdException {
 
 ## 3. 에러 코드 상수
 
-### ErrorCode Enum
+> 프로젝트별 에러 코드 목록은 `context/error-codes.md`에 정의한다.
+
+### ErrorCode Enum 구조
 ```java
 @Getter
 @RequiredArgsConstructor
@@ -88,31 +90,11 @@ public enum ErrorCode {
 
     // 공통
     INVALID_INPUT("INVALID_INPUT", "잘못된 입력입니다.", HttpStatus.BAD_REQUEST),
-    UNAUTHORIZED("UNAUTHORIZED", "인증이 필요합니다.", HttpStatus.UNAUTHORIZED),
-    FORBIDDEN("FORBIDDEN", "권한이 없습니다.", HttpStatus.FORBIDDEN),
     INTERNAL_ERROR("INTERNAL_ERROR", "서버 내부 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR),
 
-    // Team
-    TEAM_NOT_FOUND("TEAM_NOT_FOUND", "팀을 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
-
-    // Member
-    MEMBER_NOT_FOUND("MEMBER_NOT_FOUND", "멤버를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
-    MEMBER_ALREADY_EXISTS("MEMBER_ALREADY_EXISTS", "이미 가입된 멤버입니다.", HttpStatus.CONFLICT),
-
-    // Game
-    GAME_NOT_FOUND("GAME_NOT_FOUND", "경기를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
-    GAME_ALREADY_EXISTS("GAME_ALREADY_EXISTS", "해당 날짜에 이미 경기가 존재합니다.", HttpStatus.CONFLICT),
-    GAME_NOT_SCHEDULED("GAME_NOT_SCHEDULED", "예정 상태가 아닌 경기입니다.", HttpStatus.BAD_REQUEST),
-
-    // Squad
-    SQUAD_NOT_FORMED("SQUAD_NOT_FORMED", "스쿼드가 편성되지 않았습니다.", HttpStatus.BAD_REQUEST),
-    SQUAD_INVALID_SIZE("SQUAD_INVALID_SIZE", "스쿼드 인원이 균형이 맞지 않습니다.", HttpStatus.BAD_REQUEST),
-
-    // Attendance
-    ATTENDANCE_ALREADY_RESPONDED("ATTENDANCE_ALREADY_RESPONDED", "이미 참석 응답을 했습니다.", HttpStatus.CONFLICT),
-
-    // Stats
-    STATS_NOT_FOUND("STATS_NOT_FOUND", "통계 데이터가 없습니다.", HttpStatus.NOT_FOUND);
+    // 도메인별 에러코드는 context/error-codes.md 참조하여 추가
+    // {DOMAIN}_{ERROR_TYPE} 형식
+    ;
 
     private final String code;
     private final String message;

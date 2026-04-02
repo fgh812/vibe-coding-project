@@ -1,7 +1,8 @@
 # 기술 스택
 
 ## 개요
-BCD API 프로젝트의 기술 스택과 버전 규칙을 정의한다.
+Spring Boot 백엔드 프로젝트의 기술 스택 규칙을 정의한다.
+프로젝트별 DB, 의존성 버전, 설정 파일은 `context/project.md`를 참조한다.
 
 ---
 
@@ -13,7 +14,6 @@ BCD API 프로젝트의 기술 스택과 버전 규칙을 정의한다.
 | Framework | Spring Boot | 3.x |
 | ORM | Spring Data JPA (Hibernate) | - |
 | SQL Mapper | MyBatis | 3.x |
-| Database | MySQL | 8.x |
 | Build | Gradle (Kotlin DSL) | 8.x |
 | API Docs | Springdoc OpenAPI (Swagger) | 2.x |
 | Logging | SLF4J + Logback | - |
@@ -100,126 +100,12 @@ if (obj instanceof GameCreateDTO dto) {
 
 ## 4. 의존성 관리
 
-### build.gradle.kts 주요 의존성
-```kotlin
-dependencies {
-    // Spring Boot
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-
-    // MyBatis
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0+")
-
-    // Database
-    runtimeOnly("com.mysql:mysql-connector-j")
-
-    // Swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.x")
-
-    // Lombok
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-
-    // Test
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0+")
-}
-```
+> 프로젝트별 구체적인 의존성, 설정 파일, 프로젝트 구조는 `context/project.md`에 정의한다.
 
 ### 버전 관리 원칙
 - Spring Boot BOM이 관리하는 의존성은 버전 명시 안 함
-- 외부 라이브러리는 버전을 `gradle.properties` 또는 version catalog에서 관리
+- 외부 라이브러리는 `gradle.properties` 또는 version catalog에서 관리
 - SNAPSHOT 버전 사용 금지
-
----
-
-## 5. 설정 파일
-
-### application.yml 구조
-```yaml
-spring:
-  profiles:
-    active: local
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/bcd?useSSL=false&serverTimezone=Asia/Seoul
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: validate        # 운영: none, 개발: validate
-    properties:
-      hibernate:
-        format_sql: true
-        default_batch_fetch_size: 100
-    open-in-view: false          # OSIV 끄기
-
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.bcd.api
-  configuration:
-    map-underscore-to-camel-case: true
-    default-fetch-size: 100
-    default-statement-timeout: 30
-
-springdoc:
-  api-docs:
-    path: /api-docs
-  swagger-ui:
-    path: /swagger-ui
-```
-
-### 프로필 구성
-
-| 프로필 | 용도 | ddl-auto |
-|--------|------|----------|
-| `local` | 로컬 개발 | `validate` |
-| `dev` | 개발 서버 | `validate` |
-| `prod` | 운영 서버 | `none` |
-
----
-
-## 6. 프로젝트 구조
-
-```
-bcd-api/
-├── src/
-│   ├── main/
-│   │   ├── java/com/bcd/api/
-│   │   │   ├── BcdApiApplication.java
-│   │   │   ├── team/
-│   │   │   ├── member/
-│   │   │   ├── game/
-│   │   │   ├── squad/
-│   │   │   ├── stats/
-│   │   │   ├── dashboard/
-│   │   │   └── common/
-│   │   │       ├── config/
-│   │   │       ├── exception/
-│   │   │       ├── dto/
-│   │   │       ├── entity/
-│   │   │       └── util/
-│   │   └── resources/
-│   │       ├── application.yml
-│   │       ├── application-local.yml
-│   │       ├── application-dev.yml
-│   │       ├── application-prod.yml
-│   │       └── mapper/
-│   │           ├── game/
-│   │           ├── stats/
-│   │           └── ...
-│   └── test/
-│       └── java/com/bcd/api/
-├── build.gradle.kts
-├── settings.gradle.kts
-├── gradle.properties
-├── CLAUDE.md
-└── docs/
-    └── bcd-api-conventions/
-```
 
 ---
 
